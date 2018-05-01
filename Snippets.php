@@ -111,8 +111,10 @@ class SnippetsPlugin extends MantisPlugin {
 		return '
 			<script src="' . plugin_file("jquery-textrange.js") . '"></script>
 			<script src="' . plugin_file("jquery.qtip.min.js") . '"></script>
+			<script src="' . plugin_file("select2.min.js") . '"></script>
 			<script src="' . plugin_file("snippets.js") . '"></script>
 			<link rel="stylesheet" type="text/css" href="' . plugin_file("jquery.qtip.min.css") . '"/>
+			<link rel="stylesheet" type="text/css" href="' . plugin_file("select2.min.css") . '"/>
 			<link rel="stylesheet" type="text/css" href="' . plugin_file("snippets.css") . '"/>';
 	}
 

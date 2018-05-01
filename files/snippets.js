@@ -35,7 +35,6 @@ jQuery(document).ready(function($) {
 		function SnippetsUI(data) {
 			$(data.selector).each(function() {
 				var textarea = $(this);
-
 				// Only display snippets selector if there are any
 				if (Array.isArray(data.snippets) && data.snippets.length > 0) {
 					try {
@@ -52,14 +51,30 @@ jQuery(document).ready(function($) {
 							);
 						});
 
-						select.change(function() {
-							var text = $(this).val();
-							textarea.textrange('replace', text);
-							$(this).val("");
-						});
-
 						var label = $("<label>" + data.label + " </label>");
 						label.append(select);
+
+						select.select2({
+							minimumResultsForSearch: 1,
+							dropdownAutoWidth: true
+						})
+						// When a value is selected, replace the textarea's selected text
+						// and set focus on it, then reset the selected value
+						.change( function() {
+							var text = $(this).val();
+console.log(1);
+							if (text) {
+								$(this).select2('close');
+								textarea.textrange('replace', text);
+
+								// Reset the Snippets select
+								$(this).val(null).trigger('change.select2');
+
+								// Set focus on the textarea. Use of timeout is necessary,
+								// otherwise focus remains on the select
+								setTimeout(function () { textarea.focus(); }, 0);
+							}
+						});
 
 						textarea.before(label);
 						textarea.before('<div class="space-4"></div>');
